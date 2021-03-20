@@ -14,3 +14,17 @@
 [api]
   insecure = {{ 'true' if traefik_insecure_api else 'false' }}
   dashboard = {{ 'true' if traefik_dashboard else 'false' }}
+
+{% if traefik_providers.items() | length > 0 %}
+[providers]
+{% for provider, config in traefik_providers.items() %}
+  [providers.{{ provider }}]
+{% for property, value in config.items() %}
+{% if value is boolean %}
+    {{ property }} = {{ value | lower }}
+{% else %}
+    {{ property }} = "{{ value }}"
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
