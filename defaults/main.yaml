@@ -23,3 +23,5 @@ traefik_docker_network: traefik
 traefik_docker_compose: "{{ traefik_config_dir }}"
 
 traefik_docker_socket: /var/run/docker.sock
+
+traefik_provider_file_directory: "{{ traefik_config_dir }}/conf.d"

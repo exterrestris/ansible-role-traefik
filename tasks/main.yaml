@@ -4,8 +4,11 @@
 
 - name: create config directory
   file:
-    dest: "{{ traefik_config_dir }}"
+    dest: "{{ item }}"
     state: directory
+  with_items:
+    - "{{ traefik_config_dir }}"
+    - "{{ traefik_provider_file_directory }}"
 
 - name: generate static config
   ansible.builtin.template:
