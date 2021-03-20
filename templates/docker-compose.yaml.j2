@@ -4,9 +4,16 @@ services:
   {{ traefik_docker_service_name }}:
     image: {{ traefik_docker_image }}
     ports:
-      - "80:80"
-      - "443:443"
+{% for entrypoint, config in traefik_entry_points.items() %}
+{% if config is mapping %}
+      - "{{ config.port }}:{{ config.port }}"
+{% else %}
+      - "{{ config }}:{{ config }}"
+{% endif %}
+{% endfor %}
+{% if traefik_dashboard %}
       - "8080:8080"
+{% endif %}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - {{ traefik_config_dir }}:/etc/traefik/
