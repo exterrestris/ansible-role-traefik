@@ -15,7 +15,7 @@ services:
       - "8080:8080"
 {% endif %}
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - {{ traefik_docker_socket }}:{{ traefik_docker_socket }}
       - {{ traefik_config_dir }}:/etc/traefik/
     networks:
       - {{ traefik_docker_network }}
