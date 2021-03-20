@@ -6,6 +6,14 @@
   [entryPoints.{{ entrypoint }}]
 {% if config is mapping %}
     address = "{{ config.ip | default('') }}:{{ config.port }}{% if config.protocol is defined %}/{{ config.protocol  }}{% endif %}"
+{% if config.http is defined %}
+    [entryPoints.{{ entrypoint }}.http]
+{% if config.http.redirect is defined %}
+      [entryPoints.{{ entrypoint }}.http.redirections]
+        [entryPoints.{{ entrypoint }}.http.redirections.entryPoint]
+          to = "{{ config.http.redirect.to }}"
+{% endif %}
+{% endif %}
 {% else %}
     address = ":{{ config }}"
 {% endif %}

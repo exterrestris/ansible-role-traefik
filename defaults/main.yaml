@@ -7,6 +7,10 @@ traefik_config_dir: /etc/traefik
 traefik_entry_points:
   http:
     port: 80
+    http:
+      redirect:
+        to: https
+        scheme: 'https'
   https:
     port: 443
 
@@ -34,3 +38,5 @@ traefik_docker_socket: /var/run/docker.sock
 traefik_provider_file_directory: "{{ traefik_config_dir }}/conf.d"
 
 traefik_provider_file_watch: true
+
+traefik_tls_certificates: []
