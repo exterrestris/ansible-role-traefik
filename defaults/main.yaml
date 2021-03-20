@@ -7,3 +7,9 @@ traefik_config_dir: /etc/traefik
 traefik_entry_points:
   http: 80
   https: 443
+
+traefik_docker_image: traefik:v2.4
+
+traefik_docker_service_name: traefik
+
+traefik_docker_compose: "{{ traefik_config_dir }}"

@@ -1,0 +1,5 @@
+---
+- name: generate docker-compose
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ traefik_docker_compose }}/docker-compose.yaml"

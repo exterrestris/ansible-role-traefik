@@ -11,3 +11,6 @@
   ansible.builtin.template:
     src: traefik.toml.j2
     dest: "{{ traefik_config_dir }}/traefik.toml"
+
+- name: include config tasks
+  import_tasks: "config-{{ traefik_install }}.yaml"
