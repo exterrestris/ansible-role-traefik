@@ -7,7 +7,7 @@
     dest: "{{ traefik_config_dir }}"
     state: directory
 
-- name: generate config
+- name: generate static config
   ansible.builtin.template:
     src: traefik.toml.j2
     dest: "{{ traefik_config_dir }}/traefik.toml"
