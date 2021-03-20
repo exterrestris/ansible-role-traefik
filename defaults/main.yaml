@@ -5,8 +5,10 @@ traefik_install: docker
 traefik_config_dir: /etc/traefik
 
 traefik_entry_points:
-  http: 80
-  https: 443
+  http:
+    port: 80
+  https:
+    port: 443
 
 traefik_insecure_api: false
 
