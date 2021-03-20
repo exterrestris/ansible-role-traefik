@@ -2,3 +2,7 @@
 - name: include install tasks
   import_tasks: "install-{{ traefik_install }}.yaml"
 
+- name: create config directory
+  file:
+    dest: "{{ traefik_config_dir }}"
+    state: directory

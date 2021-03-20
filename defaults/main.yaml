@@ -1,3 +1,5 @@
 ---
 # Install method
 traefik_install: docker
+
+traefik_config_dir: /etc/traefik
