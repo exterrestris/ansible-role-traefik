@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  role_name: traefik
+  author: Sean Ellingham
+  description: Installs and configures Traefik
+  issue_tracker_url: https://github.com/exterrestris/ansible-role-traefik/issues
+  license: MIT
+  min_ansible_version: 2.10
+  galaxy_tags:
+  - traefik
+dependencies: []
