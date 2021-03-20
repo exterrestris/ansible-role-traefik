@@ -1,0 +1,4 @@
+---
+- name: include install tasks
+  import_tasks: "install-{{ traefik_install }}.yaml"
+
