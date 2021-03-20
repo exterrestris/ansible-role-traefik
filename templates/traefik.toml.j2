@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+## Static configuration
+[entryPoints]
+{% for entrypoint, config in traefik_entry_points.items() %}
+  [entryPoints.{{ entrypoint }}]
+{% if config is mapping %}
+    address = "{{ config.ip }}:{{ config.port }}"
+{% else %}
+    address = ":{{ config }}"
+{% endif %}
+{% endfor %}
