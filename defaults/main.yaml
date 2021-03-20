@@ -8,6 +8,10 @@ traefik_entry_points:
   http: 80
   https: 443
 
+traefik_insecure_api: false
+
+traefik_dashboard: true
+
 traefik_docker_image: traefik:v2.4
 
 traefik_docker_service_name: traefik

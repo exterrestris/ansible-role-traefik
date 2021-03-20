@@ -10,3 +10,7 @@
     address = ":{{ config }}"
 {% endif %}
 {% endfor %}
+
+[api]
+  insecure = {{ 'true' if traefik_insecure_api else 'false' }}
+  dashboard = {{ 'true' if traefik_dashboard else 'false' }}
