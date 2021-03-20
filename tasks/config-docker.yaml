@@ -3,3 +3,13 @@
   ansible.builtin.template:
     src: docker-compose.yaml.j2
     dest: "{{ traefik_docker_compose }}/docker-compose.yaml"
+
+- name: create docker network
+  community.docker.docker_network:
+    name: "{{ traefik_docker_network }}"
+    state: present
+
+- name: pull docker image
+  community.docker.docker_image:
+    name: "{{ traefik_docker_image }}"
+    source: pull

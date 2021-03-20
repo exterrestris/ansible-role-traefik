@@ -10,3 +10,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - {{ traefik_config_dir }}:/etc/traefik/
+    networks:
+      - {{ traefik_docker_network }}
+
+networks:
+  {{ traefik_docker_network }}:
+    external: true
