@@ -5,7 +5,7 @@
 {% for entrypoint, config in traefik_entry_points.items() %}
   [entryPoints.{{ entrypoint }}]
 {% if config is mapping %}
-    address = "{{ config.ip }}:{{ config.port }}"
+    address = "{{ config.ip | default('') }}:{{ config.port }}{% if config.protocol is defined %}/{{ config.protocol  }}{% endif %}"
 {% else %}
     address = ":{{ config }}"
 {% endif %}
