@@ -11,7 +11,7 @@ services:
       - "{{ config }}:{{ config }}"
 {% endif %}
 {% endfor %}
-{% if traefik_dashboard %}
+{% if traefik_dashboard and traefik_insecure_api %}
       - "8080:8080"
 {% endif %}
     volumes:
