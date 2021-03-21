@@ -16,5 +16,13 @@
     dest: "{{ traefik_config_dir }}/traefik.toml"
   notify: traefik docker restart
 
+- name: generate dynamic config
+  block:
+    - name: generate tls certificates config
+      ansible.builtin.template:
+        src: certificates.toml.j2
+        dest: "{{ traefik_provider_file_directory }}/certificates.toml"
+      when: traefik_tls_certificates | length > 0
+
 - name: include config tasks
   import_tasks: "config-{{ traefik_install }}.yaml"

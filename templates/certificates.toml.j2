@@ -1,0 +1,14 @@
+[tls.stores]
+  [tls.stores.default]
+{% if traefik_tls_certificates | selectattr('default', 'defined') | selectattr('default') | length > 0 %}
+    [tls.stores.default.defaultCertificate]
+      certFile = "{{ (traefik_tls_certificates | selectattr('default', 'defined') | selectattr('default') | first).cert }}"
+      keyFile  = "{{ (traefik_tls_certificates | selectattr('default', 'defined') | selectattr('default') | first).key }}"
+{% endif %}
+
+{% for certificate in traefik_tls_certificates %}
+[[tls.certificates]]
+  certFile = "{{ certificate.cert }}"
+  keyFile = "{{ certificate.key }}"
+  stores = ["default"]
+{% endfor %}
