@@ -4,7 +4,7 @@ services:
   {{ traefik_docker_service_name }}:
     image: {{ traefik_docker_image }}
     ports:
-{% for entrypoint in traefik_entry_points %}
+{% for entrypoint in traefik_entrypoints %}
       - "{{ entrypoint.port }}:{{ entrypoint.port }}"
 {% endfor %}
 {% if traefik_dashboard and traefik_insecure_api %}

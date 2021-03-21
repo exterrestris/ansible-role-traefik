@@ -2,7 +2,7 @@
 
 ## Static configuration
 [entryPoints]
-{% for entrypoint in traefik_entry_points %}
+{% for entrypoint in traefik_entrypoints %}
   [entryPoints.{{ entrypoint.name }}]
     address = "{{ entrypoint.ip | default('') }}:{{ entrypoint.port }}{% if entrypoint.protocol is defined %}/{{ entrypoint.protocol  }}{% endif %}"
 {% if entrypoint.http is defined %}

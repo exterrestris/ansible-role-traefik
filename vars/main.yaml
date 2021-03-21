@@ -1,18 +1,18 @@
 ---
-traefik_default_entry_points:
-  - "{{ traefik_default_http_entry_point }}"
-  - "{{ traefik_default_https_entry_point }}"
+traefik_default_entrypoints:
+  - "{{ traefik_default_http_entrypoint }}"
+  - "{{ traefik_default_https_entrypoint }}"
 
-traefik_default_http_entry_point:
-  name: "{{ traefik_http_entry_point_name }}"
+traefik_default_http_entrypoint:
+  name: "{{ traefik_http_entrypoint_name }}"
   port: 80
   http:
     redirect:
-      to: "{{ traefik_https_entry_point_name }}"
+      to: "{{ traefik_https_entrypoint_name }}"
       scheme: 'https'
 
-traefik_default_https_entry_point:
-  name: "{{ traefik_https_entry_point_name }}"
+traefik_default_https_entrypoint:
+  name: "{{ traefik_https_entrypoint_name }}"
   port: 443
 
 traefik_default_providers:

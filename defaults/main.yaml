@@ -4,13 +4,13 @@ traefik_install: docker
 
 traefik_config_dir: /etc/traefik
 
-traefik_entry_points: "{{ traefik_default_entry_points }}"
+traefik_entrypoints: "{{ traefik_default_entrypoints }}"
 
 traefik_providers: "{{ traefik_default_providers }}"
 
-traefik_http_entry_point_name: http
+traefik_http_entrypoint_name: http
 
-traefik_https_entry_point_name: https
+traefik_https_entrypoint_name: https
 
 traefik_insecure_api: false
 
