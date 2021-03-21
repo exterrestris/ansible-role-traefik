@@ -18,7 +18,7 @@ traefik_providers:
   docker:
     endpoint: "{{ traefik_docker_socket }}"
   file:
-    directory: "{{ traefik_provider_file_directory }}"
+    directory: "{{ traefik_docker_config_dir }}/conf.d"
     watch: "{{ traefik_provider_file_watch }}"
 
 traefik_insecure_api: false
@@ -34,6 +34,8 @@ traefik_docker_network: traefik
 traefik_docker_compose: "{{ traefik_config_dir }}"
 
 traefik_docker_socket: /var/run/docker.sock
+
+traefik_docker_config_dir: /etc/traefik
 
 traefik_provider_file_directory: "{{ traefik_config_dir }}/conf.d"
 

@@ -16,7 +16,7 @@ services:
 {% endif %}
     volumes:
       - {{ traefik_docker_socket }}:{{ traefik_docker_socket }}
-      - {{ traefik_config_dir }}:/etc/traefik/
+      - {{ traefik_config_dir }}:{{ traefik_docker_config_dir }}/
     networks:
       - {{ traefik_docker_network }}
 
