@@ -21,7 +21,7 @@ traefik_default_providers:
 
 traefik_default_docker_provider:
   type: docker
-  endpoint: "{{ traefik_docker_socket }}"
+  endpoint: "{{ traefik_provider_docker_endpoint }}"
 
 traefik_default_file_provider:
   type: file

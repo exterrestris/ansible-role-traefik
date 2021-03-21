@@ -30,6 +30,8 @@ traefik_docker_socket: /var/run/docker.sock
 
 traefik_docker_config_dir: /etc/traefik
 
+traefik_provider_docker_endpoint: "{{ traefik_docker_socket }}"
+
 traefik_provider_file_directory: "{{ traefik_config_dir }}/conf.d"
 
 traefik_provider_file_watch: true
