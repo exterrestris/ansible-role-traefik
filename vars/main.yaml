@@ -27,3 +27,10 @@ traefik_default_file_provider:
   type: file
   directory: "{{ traefik_docker_config_dir }}/conf.d"
   watch: "{{ traefik_provider_file_watch }}"
+
+traefik_default_docker_network:
+  name: "{{ traefik_docker_network }}"
+  external: true
+
+traefik_default_docker_networks:
+  - "{{ traefik_default_docker_network }}"

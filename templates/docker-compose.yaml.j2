@@ -17,8 +17,13 @@ services:
       - {{ traefik_log_dir }}:{{ traefik_docker_log_dir }}
 {% endif %}
     networks:
-      - {{ traefik_docker_network }}
+{% for network in traefik_docker_networks %}
+      - {{ network.name }}
+{% endfor %}
 
 networks:
-  {{ traefik_docker_network }}:
-    external: true
+{% for network in traefik_docker_networks %}
+  {{ network.alias | default(network.name) }}:
+    external: {{ network.external | default('true') | string | lower }}
+    name: {{ network.name }}
+{% endfor %}
