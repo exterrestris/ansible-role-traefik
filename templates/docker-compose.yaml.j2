@@ -4,12 +4,8 @@ services:
   {{ traefik_docker_service_name }}:
     image: {{ traefik_docker_image }}
     ports:
-{% for entrypoint, config in traefik_entry_points.items() %}
-{% if config is mapping %}
-      - "{{ config.port }}:{{ config.port }}"
-{% else %}
-      - "{{ config }}:{{ config }}"
-{% endif %}
+{% for entrypoint in traefik_entry_points %}
+      - "{{ entrypoint.port }}:{{ entrypoint.port }}"
 {% endfor %}
 {% if traefik_dashboard and traefik_insecure_api %}
       - "8080:8080"

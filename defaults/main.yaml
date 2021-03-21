@@ -4,22 +4,13 @@ traefik_install: docker
 
 traefik_config_dir: /etc/traefik
 
-traefik_entry_points:
-  http:
-    port: 80
-    http:
-      redirect:
-        to: https
-        scheme: 'https'
-  https:
-    port: 443
+traefik_entry_points: "{{ traefik_default_entry_points }}"
 
-traefik_providers:
-  docker:
-    endpoint: "{{ traefik_docker_socket }}"
-  file:
-    directory: "{{ traefik_docker_config_dir }}/conf.d"
-    watch: "{{ traefik_provider_file_watch }}"
+traefik_providers: "{{ traefik_default_providers }}"
+
+traefik_http_entry_point_name: http
+
+traefik_https_entry_point_name: https
 
 traefik_insecure_api: false
 

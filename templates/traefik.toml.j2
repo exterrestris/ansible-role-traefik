@@ -2,20 +2,16 @@
 
 ## Static configuration
 [entryPoints]
-{% for entrypoint, config in traefik_entry_points.items() %}
-  [entryPoints.{{ entrypoint }}]
-{% if config is mapping %}
-    address = "{{ config.ip | default('') }}:{{ config.port }}{% if config.protocol is defined %}/{{ config.protocol  }}{% endif %}"
-{% if config.http is defined %}
-    [entryPoints.{{ entrypoint }}.http]
-{% if config.http.redirect is defined %}
-      [entryPoints.{{ entrypoint }}.http.redirections]
-        [entryPoints.{{ entrypoint }}.http.redirections.entryPoint]
-          to = "{{ config.http.redirect.to }}"
+{% for entrypoint in traefik_entry_points %}
+  [entryPoints.{{ entrypoint.name }}]
+    address = "{{ entrypoint.ip | default('') }}:{{ entrypoint.port }}{% if entrypoint.protocol is defined %}/{{ entrypoint.protocol  }}{% endif %}"
+{% if entrypoint.http is defined %}
+    [entryPoints.{{ entrypoint.name }}.http]
+{% if entrypoint.http.redirect is defined %}
+      [entryPoints.{{ entrypoint.name }}.http.redirections]
+        [entryPoints.{{ entrypoint.name }}.http.redirections.entryPoint]
+          to = "{{ entrypoint.http.redirect.to }}"
 {% endif %}
-{% endif %}
-{% else %}
-    address = ":{{ config }}"
 {% endif %}
 {% endfor %}
 
@@ -23,15 +19,17 @@
   insecure = {{ 'true' if traefik_insecure_api else 'false' }}
   dashboard = {{ 'true' if traefik_dashboard else 'false' }}
 
-{% if traefik_providers.items() | length > 0 %}
+{% if traefik_providers | length > 0 %}
 [providers]
-{% for provider, config in traefik_providers.items() %}
-  [providers.{{ provider }}]
-{% for property, value in config.items() %}
+{% for provider in traefik_providers %}
+  [providers.{{ provider.type }}]
+{% for property, value in provider.items() %}
+{% if property != 'type' %}
 {% if value is boolean %}
     {{ property }} = {{ value | lower }}
 {% else %}
     {{ property }} = "{{ value }}"
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}

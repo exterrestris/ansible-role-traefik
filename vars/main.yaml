@@ -1,0 +1,29 @@
+---
+traefik_default_entry_points:
+  - "{{ traefik_default_http_entry_point }}"
+  - "{{ traefik_default_https_entry_point }}"
+
+traefik_default_http_entry_point:
+  name: "{{ traefik_http_entry_point_name }}"
+  port: 80
+  http:
+    redirect:
+      to: "{{ traefik_https_entry_point_name }}"
+      scheme: 'https'
+
+traefik_default_https_entry_point:
+  name: "{{ traefik_https_entry_point_name }}"
+  port: 443
+
+traefik_default_providers:
+  - "{{ traefik_default_docker_provider }}"
+  - "{{ traefik_default_file_provider }}"
+
+traefik_default_docker_provider:
+  type: docker
+  endpoint: "{{ traefik_docker_socket }}"
+
+traefik_default_file_provider:
+  type: file
+  directory: "{{ traefik_docker_config_dir }}/conf.d"
+  watch: "{{ traefik_provider_file_watch }}"
