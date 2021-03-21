@@ -1,0 +1,8 @@
+[http.routers.dashboard-https]
+  rule = "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
+  service = "api@internal"
+  [http.routers.dashboard-https.tls]
+
+[http.routers.dashboard-http]
+  rule = "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
+  service = "api@internal"

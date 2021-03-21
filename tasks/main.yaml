@@ -23,6 +23,11 @@
         src: certificates.toml.j2
         dest: "{{ traefik_provider_file_directory }}/certificates.toml"
       when: traefik_tls_certificates | length > 0
+    - name: generate dashboard config
+      ansible.builtin.template:
+        src: dashboard.toml.j2
+        dest: "{{ traefik_provider_file_directory }}/dashboard.toml"
+      when: traefik_dashboard
 
 - name: include config tasks
   import_tasks: "config-{{ traefik_install }}.yaml"
