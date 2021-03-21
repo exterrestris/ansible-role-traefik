@@ -13,6 +13,9 @@ services:
     volumes:
       - {{ traefik_docker_socket }}:{{ traefik_docker_socket }}
       - {{ traefik_config_dir }}:{{ traefik_docker_config_dir }}/
+{% if traefik_log_enabled or traefik_access_log_enabled %}
+      - {{ traefik_log_dir }}:{{ traefik_docker_log_dir }}
+{% endif %}
     networks:
       - {{ traefik_docker_network }}
 

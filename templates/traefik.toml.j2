@@ -34,3 +34,13 @@
 {% endfor %}
 {% endfor %}
 {% endif %}
+
+{% if traefik_log_enabled %}
+[log]
+  filePath = "{{ traefik_log_dir }}/{{ traefik_log_file }}"
+{% endif %}
+
+{% if traefik_access_log_enabled %}
+[accessLog]
+  filePath = "{{ traefik_log_dir }}/{{ traefik_access_log_file }}"
+{% endif %}
