@@ -3,7 +3,6 @@
   ansible.builtin.template:
     src: docker-compose.yaml.j2
     dest: "{{ traefik_docker_compose }}/docker-compose.yaml"
-  notify: traefik docker start
 
 - name: create docker network
   community.docker.docker_network:
@@ -14,4 +13,8 @@
   community.docker.docker_image:
     name: "{{ traefik_docker_image }}"
     source: pull
-  notify: traefik docker start
+
+- name: traefik docker start
+  community.docker.docker_compose:
+    state: present
+    project_src: "{{ traefik_docker_compose }}"

@@ -1,11 +1,7 @@
 ---
-- name: traefik docker start
-  community.docker.docker_compose:
-    state: present
-    project_src: "{{ traefik_docker_compose }}"
-
 - name: traefik docker restart
   community.docker.docker_compose:
     state: present
     project_src: "{{ traefik_docker_compose }}"
     restarted: yes
+  when: traefik_install == 'docker'
