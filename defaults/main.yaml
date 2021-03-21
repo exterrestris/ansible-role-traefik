@@ -16,6 +16,8 @@ traefik_insecure_api: false
 
 traefik_dashboard: true
 
+traefik_dashboard_router_name: dashboard
+
 traefik_docker_image: traefik:v2.4
 
 traefik_docker_service_name: traefik

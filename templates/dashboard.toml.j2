@@ -1,8 +1,8 @@
-[http.routers.dashboard-https]
+[http.routers.{{ traefik_dashboard_router_name }}-{{ traefik_https_entrypoint_name }}]
   rule = "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
   service = "api@internal"
-  [http.routers.dashboard-https.tls]
+  [http.routers.{{ traefik_dashboard_router_name }}-{{ traefik_https_entrypoint_name }}.tls]
 
-[http.routers.dashboard-http]
+[http.routers.{{ traefik_dashboard_router_name }}-{{ traefik_http_entrypoint_name }}]
   rule = "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
   service = "api@internal"
