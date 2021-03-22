@@ -25,7 +25,7 @@ networks:
 {% for network in traefik_docker_networks %}
   {{ network.name }}:
     external: {{ network.external | default('false') | string | lower }}
-{% if network.alias is defined %}
+{%  if network.alias is defined %}
     name: {{ network.alias }}
-{% endif %}
+{%  endif %}
 {% endfor %}

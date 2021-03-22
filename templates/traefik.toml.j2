@@ -5,14 +5,14 @@
 {% for entrypoint in traefik_entrypoints %}
   [entryPoints.{{ entrypoint.name }}]
     address = "{{ entrypoint.ip | default('') }}:{{ entrypoint.port }}{% if entrypoint.protocol is defined %}/{{ entrypoint.protocol  }}{% endif %}"
-{% if entrypoint.http is defined %}
+{%  if entrypoint.http is defined %}
     [entryPoints.{{ entrypoint.name }}.http]
-{% if entrypoint.http.redirect is defined %}
+{%   if entrypoint.http.redirect is defined %}
       [entryPoints.{{ entrypoint.name }}.http.redirections]
         [entryPoints.{{ entrypoint.name }}.http.redirections.entryPoint]
           to = "{{ entrypoint.http.redirect.to }}"
-{% endif %}
-{% endif %}
+{%   endif %}
+{%  endif %}
 {% endfor %}
 
 [api]
@@ -21,18 +21,18 @@
 
 {% if traefik_providers | length > 0 %}
 [providers]
-{% for provider in traefik_providers %}
+{%  for provider in traefik_providers %}
   [providers.{{ provider.type }}]
-{% for property, value in provider.items() %}
-{% if property != 'type' %}
-{% if value is boolean %}
+{%   for property, value in provider.items() %}
+{%    if property != 'type' %}
+{%     if value is boolean %}
     {{ property }} = {{ value | lower }}
-{% else %}
+{%     else %}
     {{ property }} = "{{ value }}"
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endfor %}
+{%     endif %}
+{%    endif %}
+{%   endfor %}
+{%  endfor %}
 {% endif %}
 
 {% if traefik_log_enabled %}
