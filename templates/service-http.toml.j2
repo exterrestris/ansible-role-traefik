@@ -1,0 +1,10 @@
+[http.services]
+  [http.services.{{ service.name }}.loadBalancer]
+{% for server in service.servers %}
+    [[http.services.{{ service.name }}.loadBalancer.servers]]
+{%  if server is mapping %}
+      url = "{{ server.url }}"
+{%  else %}
+      url = "{{ server }}"
+{%  endif %}
+{% endfor %}

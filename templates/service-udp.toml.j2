@@ -1,0 +1,10 @@
+[udp.services]
+  [udp.services.{{ service.name }}.loadBalancer]
+{% for server in service.servers %}
+    [[udp.services.{{ service.name }}.loadBalancer.servers]]
+{%  if server is mapping %}
+      address = "{{ server.address }}"
+{%  else %}
+      address = "{{ server }}"
+{%  endif %}
+{% endfor %}

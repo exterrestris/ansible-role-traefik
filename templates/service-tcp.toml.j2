@@ -1,0 +1,10 @@
+[tcp.services]
+  [tcp.services.{{ service.name }}.loadBalancer]
+{% for server in service.servers %}
+    [[tcp.services.{{ service.name }}.loadBalancer.servers]]
+{%  if server is mapping %}
+      address = "{{ server.address }}"
+{%  else %}
+      address = "{{ server }}"
+{%  endif %}
+{% endfor %}

@@ -29,6 +29,13 @@
         src: dashboard.toml.j2
         dest: "{{ traefik_provider_file_directory }}/dashboard.toml"
       when: traefik_dashboard
+    - name: generate services
+      ansible.builtin.template:
+        src: service-{{ service.type | default('http') }}.toml.j2
+        dest: "{{ traefik_provider_file_directory }}/service-{{ service.name }}.toml"
+      loop: "{{ traefik_services }}"
+      loop_control:
+        loop_var: service
 
 - name: include config tasks
   import_tasks: "config-{{ traefik_install }}.yaml"
