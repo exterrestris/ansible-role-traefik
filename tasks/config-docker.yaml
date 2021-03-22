@@ -7,6 +7,8 @@
 - name: create docker network
   community.docker.docker_network:
     name: "{{ traefik_docker_network }}"
+    driver: "{{ traefik_docker_network_driver }}"
+    driver_options: "{{ traefik_docker_network_driver_options }}"
     state: present
 
 - name: pull docker image

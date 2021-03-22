@@ -34,6 +34,10 @@ traefik_docker_service_name: traefik
 
 traefik_docker_network: traefik
 
+traefik_docker_network_driver: bridge
+
+traefik_docker_network_driver_options: {}
+
 traefik_docker_network_alias: "{{ traefik_docker_network }}"
 
 traefik_docker_compose: "{{ traefik_config_dir }}"
