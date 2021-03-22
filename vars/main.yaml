@@ -30,8 +30,8 @@ traefik_default_file_provider:
 
 traefik_default_docker_network:
   name: "{{ traefik_docker_network }}"
-  external: false
-  alias: "{{ traefik_docker_network }}"
+  external: true
+  alias: "{{ traefik_docker_network_alias }}"
 
 traefik_default_docker_networks:
   - "{{ traefik_default_docker_network }}"
