@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   {{ traefik_docker_service_name }}:
@@ -23,7 +23,9 @@ services:
 
 networks:
 {% for network in traefik_docker_networks %}
-  {{ network.alias | default(network.name) }}:
-    external: {{ network.external | default('true') | string | lower }}
-    name: {{ network.name }}
+  {{ network.name }}:
+    external: {{ network.external | default('false') | string | lower }}
+{% if network.alias is defined %}
+    name: {{ network.alias }}
+{% endif %}
 {% endfor %}
