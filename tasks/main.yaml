@@ -26,8 +26,13 @@
       when: traefik_tls_certificates | length > 0
     - name: generate dashboard config
       ansible.builtin.template:
-        src: dashboard.toml.j2
+        src: router-http.toml.j2
         dest: "{{ traefik_provider_file_directory }}/dashboard.toml"
+      vars:
+        router:
+          name: "{{ traefik_dashboard_router_name }}"
+          rule: "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
+          service: "api@internal"
       when: traefik_dashboard
     - name: generate routers
       ansible.builtin.template:
