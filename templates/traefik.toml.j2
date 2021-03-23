@@ -4,7 +4,7 @@
 [entryPoints]
 {% for entrypoint in traefik_entrypoints %}
   [entryPoints.{{ entrypoint.name }}]
-    address = "{{ entrypoint.ip | default('') }}:{{ entrypoint.port }}{% if entrypoint.protocol is defined %}/{{ entrypoint.protocol  }}{% endif %}"
+    address = "{{ entrypoint.host | default('') }}:{{ entrypoint.port }}{% if entrypoint.protocol is defined %}/{{ entrypoint.protocol  }}{% endif %}"
 {%  if entrypoint.http is defined %}
     [entryPoints.{{ entrypoint.name }}.http]
 {%   if entrypoint.http.redirect is defined %}
