@@ -1,0 +1,10 @@
+[udp.routers]
+  [udp.routers.{{ router.name }}]
+    service = "{{ router.service }}"
+{% if router.entrypoints is defined %}
+{%  if router.entrypoints is string %}
+    entryPoints = ["{{ router.entrypoints }}"]
+{%  else %}
+    entryPoints = ["{{ router.entrypoints | join('", "') }}"]
+{%  endif %}
+{% endif %}

@@ -1,0 +1,21 @@
+{% macro definition(router) -%}
+    rule = "{{ router.rule }}"
+{% if router.entrypoints is defined %}
+{%  if router.entrypoints is string %}
+    entryPoints = ["{{ router.entrypoints }}"]
+{%  else %}
+    entryPoints = ["{{ router.entrypoints | join('", "') }}"]
+{%  endif %}
+{% endif %}
+    service = "{{ router.service }}"
+{%- endmacro %}
+[tcp.routers]
+{% if router.create | default('both') in(['both', 'insecure']) %}
+  [tcp.routers.{{ router.name }}]
+    {{ definition(router) }}
+{% endif %}
+{% if router.create | default('both') in(['both', 'secure']) %}
+  [tcp.routers.{{ router.name }}-tls]
+    {{ definition(router) }}
+    [tcp.routers.{{ router.name }}-tls.tls]
+{% endif %}

@@ -58,4 +58,6 @@ traefik_provider_file_watch: true
 
 traefik_tls_certificates: []
 
+traefik_routers: []
+
 traefik_services: []

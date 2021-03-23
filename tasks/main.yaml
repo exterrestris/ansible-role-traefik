@@ -29,6 +29,13 @@
         src: dashboard.toml.j2
         dest: "{{ traefik_provider_file_directory }}/dashboard.toml"
       when: traefik_dashboard
+    - name: generate routers
+      ansible.builtin.template:
+        src: router-{{ router.type | default('http') }}.toml.j2
+        dest: "{{ traefik_provider_file_directory }}/router-{{ router.name }}.toml"
+      loop: "{{ traefik_routers }}"
+      loop_control:
+        loop_var: router
     - name: generate services
       ansible.builtin.template:
         src: service-{{ service.type | default('http') }}.toml.j2
