@@ -52,21 +52,21 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | `traefik_log_file` | `"traefik.log"` | System log filename |
 | `traefik_access_log_enabled` | `no` | Enable access log |
 | `traefik_access_log_file` | `"access.log"` | Access log filename |
-| `traefik_provider_file_directory` | `""{{ traefik_config_dir }}/conf.d""` | Directory for file-based dynamic configuration files |
-| `traefik_provider_file_watch` | `"true"` | Watch files in `traefik_provider_file_directory` for changes |
+| `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Directory for file-based dynamic configuration files |
+| `traefik_provider_file_watch` | `true` | Watch files in `traefik_provider_file_directory` for changes |
 
 #### Docker specific configuration
 | Variable | Default | Comments |
 | :--- | :--- | :--- |
-| `traefik_docker_compose` | `""{{ traefik_config_dir }}""` | Location for generated `docker-compose.yaml` |
+| `traefik_docker_compose` | `"{{ traefik_config_dir }}"` | Location for generated `docker-compose.yaml` |
 | `traefik_docker_service_name` | `"traefik"` | Name of service in `docker-compose.yaml` |
 | `traefik_docker_networks` | `"{{ traefik_default_docker_networks }}"` | Networks to create in `docker-compose.yaml`. Traefik container will be attached to all networks listed |
 | `traefik_docker_network` | `"traefik"` | Name of default network |
 | `traefik_docker_network_driver` | `"bridge"` | Driver type for default network  |
 | `traefik_docker_network_driver_options` | `"{}"` | Driver options for default network |
-| `traefik_docker_network_alias` | `""{{ traefik_docker_network }}""` | "Public" name for default network |
+| `traefik_docker_network_alias` | `"{{ traefik_docker_network }}"` | "Public" name for default network |
 | `traefik_docker_socket` | `"/var/run/docker.sock"` | Path to Docker socket. Will be bound to same path in container |
-| `traefik_provider_docker_endpoint` | `""unix://{{ traefik_docker_socket }}""` | Endpoint for Docker provider |
+| `traefik_provider_docker_endpoint` | `"unix://{{ traefik_docker_socket }}"` | Endpoint for Docker provider |
 
 #### `traefik_tls_certificates[]`
 | Variable | Default | Comments |
