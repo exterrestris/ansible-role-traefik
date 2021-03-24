@@ -59,10 +59,6 @@ traefik_docker_compose: "{{ traefik_config_dir }}"
 
 traefik_docker_socket: /var/run/docker.sock
 
-traefik_docker_config_dir: /etc/traefik
-
-traefik_docker_log_dir: "{{ traefik_log_dir }}"
-
 traefik_docker_networks: "{{ traefik_default_docker_networks }}"
 
 traefik_provider_docker_endpoint: "unix://{{ traefik_docker_socket }}"
