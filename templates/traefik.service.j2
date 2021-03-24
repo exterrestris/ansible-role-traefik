@@ -1,0 +1,23 @@
+[Unit]
+Description=Traefik
+Documentation=https://docs.traefik.io
+After=network-online.target
+AssertFileIsExecutable={{ traefik_install_dir }}/traefik
+AssertPathExists={{ traefik_config_dir }}/traefik.toml
+
+[Service]
+User={{ traefik_service_user }}
+Group={{ traefik_service_user }}
+Type=notify
+ExecStart={{ traefik_install_dir }}/traefik --configFile={{ traefik_config_dir }}/traefik.toml
+Restart=always
+WatchdogSec=1s
+ProtectHome=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+ReadWritePaths={{ traefik_provider_file_directory }}
+ReadWritePaths={{ traefik_log_dir }}
+
+[Install]
+WantedBy=multi-user.target

@@ -46,3 +46,10 @@
     createhome: no
     system: yes
 
+- name: generate systemd service unit file
+  ansible.builtin.template:
+    src: "traefik.service.j2"
+    dest: "/usr/lib/systemd/system/traefik.service"
+    owner: root
+    group: root
+    mode: '0700'
