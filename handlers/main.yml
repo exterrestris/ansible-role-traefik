@@ -5,3 +5,9 @@
     project_src: "{{ traefik_docker_compose }}"
     restarted: yes
   when: traefik_install == 'docker'
+
+- name: traefik service restart
+  ansible.builtin.systemd:
+    name: traefik.service
+    state: restarted
+  when: traefik_install == 'binary'

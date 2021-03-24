@@ -15,7 +15,9 @@
   ansible.builtin.template:
     src: traefik.toml.j2
     dest: "{{ traefik_config_dir }}/traefik.toml"
-  notify: traefik docker restart
+  notify:
+    - traefik docker restart
+    - traefik service restart
 
 - name: generate dynamic config
   block:
