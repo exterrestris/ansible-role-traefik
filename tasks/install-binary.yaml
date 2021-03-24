@@ -1,0 +1,33 @@
+---
+- become: false
+  delegate_to: localhost
+  run_once: true
+  block:
+  - name: get latest release versiom from GitHub
+    ansible.builtin.uri:
+      url: "{{ traefik_github_url }}/releases/latest"
+    register: traefik_github_release_page
+  - name: Set latest version fact
+    ansible.builtin.set_fact:
+      traefik_binary_version: "{{ traefik_github_release_page['url'].split('/')[-1] }}"
+  when: traefik_binary_version == "latest"
+
+- name: download release archive
+  ansible.builtin.get_url:
+    url: "{{ traefik_github_url }}/releases/download/{{ traefik_binary_version }}/traefik_{{ traefik_binary_version }}_linux_{{ traefik_arch }}.tar.gz"
+    dest: "{{ traefik_download_dir }}"
+    force: yes
+
+- name: extract archive
+  ansible.builtin.unarchive:
+    src: "{{ traefik_download_dir }}/traefik_{{ traefik_binary_version }}_linux_{{ traefik_arch }}.tar.gz"
+    dest: "{{ traefik_download_dir }}"
+    remote_src: yes
+
+- name: copy binary
+  ansible.builtin.copy:
+    src: "{{ traefik_download_dir }}/traefik"
+    dest: "{{ traefik_install_dir }}/traefik"
+    remote_src: yes
+    mode: '0755'
+  become: true
