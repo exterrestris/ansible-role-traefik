@@ -120,6 +120,8 @@ All provider options are supported, and will be output as specified. No default 
 | `name` | *Required* | Internal name for the network |
 | `external` | `false` | Network created outside of `docker-compose.yaml` |
 | `alias` | `""` | "Public" name for the network |
+| `driver` | `""` | Driver to use for the network |
+| `driver_opts` | `{}` | Driver options for the network |
 
 ## Defaults
 
@@ -171,6 +173,8 @@ traefik_default_docker_network:
   name: "{{ traefik_docker_network }}"
   external: true
   alias: "{{ traefik_docker_network_alias }}"
+  driver: "{{ traefik_docker_network_driver }}"
+  driver_opts: "{{ traefik_docker_network_driver_options }}"
 
 traefik_default_docker_networks:
   - "{{ traefik_default_docker_network }}"
