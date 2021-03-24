@@ -32,6 +32,10 @@ traefik_dashboard: true
 
 traefik_dashboard_router_name: dashboard
 
+traefik_dashboard_entrypoints:
+  - "{{ traefik_http_entrypoint_name }}"
+  - "{{ traefik_https_entrypoint_name }}"
+
 traefik_log_dir: '/var/log/traefik'
 
 traefik_log_enabled: no
