@@ -91,4 +91,57 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | `type` | `"http"` | Service type: `"http"`, `"tcp"` or `"udp"` |
 | `servers` | *Required* | List of server URLs to load balance between |
 
+## Defaults
 
+### Entrypoints
+
+Two entrypoints are defined by default, listening to all available IP addresses - an HTTP entrypoint on port 80, and a corresponding HTTPS entrypoint on port 443. The HTTP entrypoint is configured to redirect all traffic to the HTTPS entrypoint automatically.
+
+```Yaml
+traefik_default_entrypoints:
+  - "{{ traefik_default_http_entrypoint }}"
+  - "{{ traefik_default_https_entrypoint }}"
+
+traefik_default_http_entrypoint:
+  name: "{{ traefik_http_entrypoint_name }}"
+  port: 80
+  http:
+    redirect:
+      to: "{{ traefik_https_entrypoint_name }}"
+      scheme: 'https'
+
+traefik_default_https_entrypoint:
+  name: "{{ traefik_https_entrypoint_name }}"
+  port: 443
+```
+
+### Providers
+Two providers are configured by default - a file provider, and a docker provider. These can be removed by replacing the definitions, however be aware that all the dynamic configuration files (e.g. the dashboard router, `traefik_tls_certificates` etc.) are generated in `traefik_provider_file_directory` and require that a file provider pointing to that directory exists in order to be used
+
+```Yaml
+traefik_default_providers:
+  - "{{ traefik_default_docker_provider }}"
+  - "{{ traefik_default_file_provider }}"
+
+traefik_default_docker_provider:
+  type: "docker"
+  endpoint: "{{ traefik_provider_docker_endpoint }}"
+
+traefik_default_file_provider:
+  type: "file"
+  directory: "{{ traefik_provider_file_directory }}"
+  watch: "{{ traefik_provider_file_watch }}"
+```
+
+### Docker Networks
+One network definition is provided by default
+
+```Yaml
+traefik_default_docker_network:
+  name: "{{ traefik_docker_network }}"
+  external: true
+  alias: "{{ traefik_docker_network_alias }}"
+
+traefik_default_docker_networks:
+  - "{{ traefik_default_docker_network }}"
+```
