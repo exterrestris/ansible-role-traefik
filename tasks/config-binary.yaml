@@ -4,3 +4,4 @@
     state: started
     masked: no
     enabled: yes
+    daemon_reload: yes
