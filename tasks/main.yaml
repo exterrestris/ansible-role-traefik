@@ -1,6 +1,6 @@
 ---
 - name: include install tasks
-  import_tasks: "install-{{ traefik_install }}.yaml"
+  include_tasks: "install-{{ traefik_install }}.yaml"
 
 - name: create config/log directories
   file:
@@ -15,7 +15,9 @@
   ansible.builtin.template:
     src: traefik.toml.j2
     dest: "{{ traefik_config_dir }}/traefik.toml"
-  notify: traefik docker restart
+  notify:
+    - traefik docker restart
+    - traefik service restart
 
 - name: generate dynamic config
   block:
@@ -51,4 +53,4 @@
         loop_var: service
 
 - name: include config tasks
-  import_tasks: "config-{{ traefik_install }}.yaml"
+  include_tasks: "config-{{ traefik_install }}.yaml"

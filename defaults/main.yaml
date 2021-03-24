@@ -2,6 +2,20 @@
 # Install method
 traefik_install: docker
 
+# Github Repo URL
+traefik_github_url: https://github.com/traefik/traefik
+
+# Download directory
+traefik_download_dir: /tmp/traefik
+
+# Install directory
+traefik_install_dir: /usr/local/bin
+
+# Version to install: "latest" or specific version
+traefik_binary_version: latest
+
+traefik_service_user: traefik
+
 traefik_config_dir: /etc/traefik
 
 traefik_entrypoints: "{{ traefik_default_entrypoints }}"

@@ -1,4 +1,11 @@
 ---
+traefik_arch_map:
+  x86_64: amd64
+  i386: '386'
+  aarch64: arm64
+  armv7l: arm7
+traefik_arch: "{{ traefik_arch_map[ansible_userspace_architecture | default(ansible_architecture) ] }}"
+
 traefik_default_entrypoints:
   - "{{ traefik_default_http_entrypoint }}"
   - "{{ traefik_default_https_entrypoint }}"

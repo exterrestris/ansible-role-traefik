@@ -1,0 +1,7 @@
+- name: enable and start service
+  ansible.builtin.systemd:
+    name: traefik.service
+    state: started
+    masked: no
+    enabled: yes
+    daemon_reload: yes
