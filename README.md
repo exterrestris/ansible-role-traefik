@@ -54,6 +54,25 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | `traefik_access_log_file` | `"access.log"` | Access log filename |
 | `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Directory for file-based dynamic configuration files |
 | `traefik_provider_file_watch` | `true` | Watch files in `traefik_provider_file_directory` for changes |
+
+#### `traefik_entrypoints[]`
+| Variable | Default | Comments |
+| :--- | :--- | :--- |
+| `name` | *Required* | Entrypoint name |
+| `port` | *Required* | Entrypoint port |
+| `host` | `""` | Host IP to listen on. Defaults to any IP |
+| `protocol` | `""` | Protocol to listen to (`"tcp"` or `"udp"`). Defaults to unspecified (effectively `"tcp"`) |
+| `http` | `{}` | HTTP specific options |
+| `http.redirect.to` | `""` | Entrypoint to redirect traffic to |
+
+#### `traefik_providers[]`
+| Variable | Default | Comments |
+| :--- | :--- | :--- |
+| `type` | *Required* | Provider type |
+| *`option`* | `""` | Provider option |
+
+All provider options are supported, and will be output as specified. No default options are set for any provider - everything required by the provider type must be specified
+
 #### `traefik_tls_certificates[]`
 | Variable | Default | Comments |
 | :--- | :--- | :--- |
@@ -90,6 +109,13 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | `traefik_docker_network_alias` | `"{{ traefik_docker_network }}"` | "Public" name for default network |
 | `traefik_docker_socket` | `"/var/run/docker.sock"` | Path to Docker socket. Will be bound to same path in container |
 | `traefik_provider_docker_endpoint` | `"unix://{{ traefik_docker_socket }}"` | Endpoint for Docker provider |
+
+##### `traefik_docker_networks[]`
+| Variable | Default | Comments |
+| :--- | :--- | :--- |
+| `name` | *Required* | Internal name for the network |
+| `external` | `false` | Network created outside of `docker-compose.yaml` |
+| `alias` | `""` | "Public" name for the network |
 
 ## Defaults
 
