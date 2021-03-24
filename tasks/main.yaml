@@ -32,6 +32,7 @@
         router:
           name: "{{ traefik_dashboard_router_name }}"
           rule: "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
+          entrypoints: "{{ traefik_dashboard_entrypoints }}"
           service: "api@internal"
       when: traefik_dashboard
     - name: generate routers
