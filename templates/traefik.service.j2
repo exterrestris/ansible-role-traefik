@@ -18,6 +18,7 @@ ProtectKernelTunables=true
 ProtectControlGroups=true
 ReadWritePaths={{ traefik_provider_file_directory }}
 ReadWritePaths={{ traefik_log_dir }}
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
