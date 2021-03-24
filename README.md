@@ -36,23 +36,27 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | Variable | Default | Comments |
 | :--- | :--- | :--- |
 | `traefik_config_dir` | `"/etc/traefik"` | Directory to store Traefik config files |
-| `traefik_log_dir` | `"/var/log/traefik"` | Directory to store Traefik log files |
-| `traefik_tls_certificates` | `[]` | Certificates to provide to Trafik |
+| `traefik_entrypoints` | `"{{ traefik_default_entrypoints }}"` | Entry Point definitions |
 | `traefik_providers` | `"{{ traefik_default_providers }}"` | Provider definitions |
+| `traefik_tls_certificates` | `[]` | Certificates to provide to Trafik |
 | `traefik_routers` | `[]` | Router definitions |
 | `traefik_services` | `[]` | Service definitions |
-| `traefik_entrypoints` | `"{{ traefik_default_entrypoints }}"` | Entry Point definitions |
-| `traefik_http_entrypoint_name` | `"http"` | Name for default HTTP entrypoint |
-| `traefik_https_entrypoint_name` | `"https"` | Name for default HTTPS entrypoint |
-| `traefik_insecure_api` | `false` | Enable insecure API access |
-| `traefik_dashboard` | `true` | Enable dashboard |
-| `traefik_dashboard_router_name` | `"dashboard"` | Name for dashboard router |
-| `traefik_dashboard_entrypoints` | `["{{ traefik_http_entrypoint_name }}", "{{ traefik_https_entrypoint_name }}"]` | Entrypoints to bind dashboard router to |
+| `traefik_log_dir` | `"/var/log/traefik"` | Directory to store Traefik log files |
 | `traefik_log_enabled` | `no` | Enable system log |
 | `traefik_log_file` | `"traefik.log"` | System log filename |
 | `traefik_access_log_enabled` | `no` | Enable access log |
 | `traefik_access_log_file` | `"access.log"` | Access log filename |
-| `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Directory for file-based dynamic configuration files |
+| `traefik_dashboard` | `true` | Enable dashboard |
+| `traefik_dashboard_router_name` | `"dashboard"` | Name for dashboard router |
+| `traefik_dashboard_entrypoints` | `["{{ traefik_http_entrypoint_name }}", "{{ traefik_https_entrypoint_name }}"]` | Entrypoints to bind dashboard router to |
+| `traefik_insecure_api` | `false` | Enable insecure API access |
+
+### Default overrides
+| Variable | Default | Comments |
+| :--- | :--- | :--- |
+| `traefik_http_entrypoint_name` | `"http"` | Name for default HTTP entrypoint |
+| `traefik_https_entrypoint_name` | `"https"` | Name for default HTTPS entrypoint |
+| `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Directory for default file provider. All generated dynamic configuration files are output in this location |
 | `traefik_provider_file_watch` | `true` | Watch files in `traefik_provider_file_directory` for changes |
 
 #### `traefik_entrypoints[]`
