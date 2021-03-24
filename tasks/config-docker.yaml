@@ -13,6 +13,7 @@
   loop: "{{ traefik_docker_networks }}"
   loop_control:
     loop_var: network
+  when: traefik_docker_precreate_networks
 
 - name: pull docker image
   community.docker.docker_image:

@@ -47,6 +47,8 @@ traefik_docker_image: traefik:v2.4
 
 traefik_docker_service_name: traefik
 
+traefik_docker_precreate_networks: yes
+
 traefik_docker_network: traefik
 
 traefik_docker_network_driver: bridge
