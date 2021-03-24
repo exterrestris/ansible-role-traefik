@@ -31,3 +31,18 @@
     remote_src: yes
     mode: '0755'
   become: true
+
+- name: create service group
+  ansible.builtin.group:
+    name: "{{ traefik_service_user }}"
+    system: yes
+
+- name: create service user
+  ansible.builtin.user:
+    name: "{{ traefik_service_user }}"
+    group: "{{ traefik_service_user }}"
+    shell: /usr/sbin/nologin
+    home: /nonexistent
+    createhome: no
+    system: yes
+
