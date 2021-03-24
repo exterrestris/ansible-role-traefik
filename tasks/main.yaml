@@ -1,6 +1,6 @@
 ---
 - name: include install tasks
-  import_tasks: "install-{{ traefik_install }}.yaml"
+  include_tasks: "install-{{ traefik_install }}.yaml"
 
 - name: create config/log directories
   file:
@@ -50,4 +50,4 @@
         loop_var: service
 
 - name: include config tasks
-  import_tasks: "config-{{ traefik_install }}.yaml"
+  include_tasks: "config-{{ traefik_install }}.yaml"
