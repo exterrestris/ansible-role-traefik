@@ -28,4 +28,13 @@ networks:
 {%  if network.alias is defined %}
     name: {{ network.alias }}
 {%  endif %}
+{%  if network.driver is defined %}
+    driver: {{ network.driver }}
+{%  endif %}
+{%  if network.driver_opts is defined %}
+    driver_opts:
+{%   for opt, value in network.driver_opts.items() %}
+      {{ opt }}: {{ value }}
+{%   endfor %}
+{%  endif %}
 {% endfor %}
