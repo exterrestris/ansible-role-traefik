@@ -2,9 +2,6 @@
 # Install method
 traefik_install: docker
 
-# Github Repo URL
-traefik_github_url: https://github.com/traefik/traefik
-
 # Download directory
 traefik_download_dir: /tmp/traefik
 

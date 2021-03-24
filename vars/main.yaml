@@ -1,4 +1,7 @@
 ---
+# Github Repo URL
+traefik_github_url: https://github.com/traefik/traefik
+
 traefik_arch_map:
   x86_64: amd64
   i386: '386'
