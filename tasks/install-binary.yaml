@@ -12,6 +12,11 @@
       traefik_binary_version: "{{ traefik_github_release_page['url'].split('/')[-1] }}"
   when: traefik_binary_version == "latest"
 
+- name: create download directory
+  file:
+    dest: "{{ traefik_download_dir }}"
+    state: directory
+
 - name: download release archive
   ansible.builtin.get_url:
     url: "{{ traefik_github_url }}/releases/download/{{ traefik_binary_version }}/traefik_{{ traefik_binary_version }}_linux_{{ traefik_arch }}.tar.gz"
