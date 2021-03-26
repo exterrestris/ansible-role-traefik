@@ -1,1 +1,23 @@
 ---
+- name: include common config tasks
+  include_tasks: "config-common.yaml"
+  vars:
+    traefik_config_dir: /etc/traefik
+    traefik_provider_file_directory: /etc/traefik/conf.d
+    traefik_tls_certificate_dir: /etc/traefik/certificates
+    traefik_log_dir: /var/log/traefik
+
+- name: generate docker-compose
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ traefik_docker_compose }}/docker-compose.yaml"
+
+- name: pull docker image
+  community.docker.docker_image:
+    name: "{{ traefik_docker_image }}"
+    source: pull
+
+- name: traefik docker start
+  community.docker.docker_compose:
+    state: present
+    project_src: "{{ traefik_docker_compose }}"

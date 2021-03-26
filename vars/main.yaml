@@ -47,3 +47,7 @@ traefik_default_docker_network:
 
 traefik_default_docker_networks:
   - "{{ traefik_default_docker_network }}"
+
+traefik_provider_file_directory: "{{ traefik_config_dir }}/conf.d"
+
+traefik_tls_certificate_dir: "{{ traefik_config_dir }}/certificates"

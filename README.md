@@ -56,7 +56,6 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 | :--- | :--- | :--- |
 | `traefik_http_entrypoint_name` | `"http"` | Name for default HTTP entrypoint |
 | `traefik_https_entrypoint_name` | `"https"` | Name for default HTTPS entrypoint |
-| `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Directory for default file provider. All generated dynamic configuration files are output in this location |
 | `traefik_provider_file_watch` | `true` | Watch files in `traefik_provider_file_directory` for changes |
 
 #### `traefik_entrypoints[]`
@@ -78,10 +77,12 @@ An Ansible role to install and configure [Traefik](https://traefik.io/traefik/) 
 All provider options are supported, and will be output as specified. No default options are set for any provider - everything required by the provider type must be specified
 
 #### `traefik_tls_certificates[]`
+TLS certificates need to be installed in `{{ traefik_config_dir }}`/certificates
+
 | Variable | Default | Comments |
 | :--- | :--- | :--- |
-| `cert` | *Required* | Path to the full certificate chain |
-| `key` | *Required* | Path to the private key |
+| `cert` | *Required* | Filename for the full certificate chain |
+| `key` | *Required* | Filename for the private key |
 | `default` | `no` | Set as the default certificate |
 
 #### `traefik_routers[]`
@@ -125,6 +126,12 @@ All provider options are supported, and will be output as specified. No default 
 
 ## Defaults
 
+### Predefined Variables
+| Variable | Value | Comments |
+| :--- | :--- | :--- |
+| `traefik_provider_file_directory` | `"{{ traefik_config_dir }}/conf.d"` | Location for dynamic configuration files |
+| `traefik_tls_certificate_dir` | `"{{ traefik_config_dir }}/certificates"` | Location for TLS certificates |
+
 ### Entrypoints
 
 Two entrypoints are defined by default, listening to all available IP addresses - an HTTP entrypoint on port 80, and a corresponding HTTPS entrypoint on port 443. The HTTP entrypoint is configured to redirect all traffic to the HTTPS entrypoint automatically.
@@ -148,7 +155,7 @@ traefik_default_https_entrypoint:
 ```
 
 ### Providers
-Two providers are configured by default - a file provider, and a docker provider. These can be removed by replacing the definitions, however be aware that all the dynamic configuration files (e.g. the dashboard router, `traefik_tls_certificates` etc.) are generated in `traefik_provider_file_directory` and require that a file provider pointing to that directory exists in order to be used
+Two providers are configured by default - a file provider, and a docker provider. These can be removed by replacing the definitions, however be aware that all the dynamic configuration files (e.g. the dashboard router, supplied `traefik_tls_certificates` etc.) are generated in `traefik_provider_file_directory` and require that a file provider pointing to that directory exists in order to be used
 
 ```Yaml
 traefik_default_providers:

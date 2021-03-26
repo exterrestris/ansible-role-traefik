@@ -1,0 +1,41 @@
+---
+- name: generate static config
+  ansible.builtin.template:
+    src: traefik.toml.j2
+    dest: "{{ traefik_real_config_dir }}/traefik.toml"
+  notify:
+    - traefik docker restart
+    - traefik service restart
+
+- name: generate dynamic config
+  block:
+    - name: generate tls certificates config
+      ansible.builtin.template:
+        src: certificates.toml.j2
+        dest: "{{ traefik_real_provider_file_directory }}/certificates.toml"
+      when: traefik_tls_certificates | length > 0
+    - name: generate dashboard config
+      ansible.builtin.template:
+        src: router-http.toml.j2
+        dest: "{{ traefik_real_provider_file_directory }}/dashboard.toml"
+      vars:
+        router:
+          name: "{{ traefik_dashboard_router_name }}"
+          rule: "Host(`{{ traefik_dashboard_domain | default('traefik.' ~ ansible_hostname) }}`)"
+          entrypoints: "{{ traefik_dashboard_entrypoints }}"
+          service: "api@internal"
+      when: traefik_dashboard
+    - name: generate routers
+      ansible.builtin.template:
+        src: router-{{ router.type | default('http') }}.toml.j2
+        dest: "{{ traefik_real_provider_file_directory }}/router-{{ router.name }}.toml"
+      loop: "{{ traefik_routers }}"
+      loop_control:
+        loop_var: router
+    - name: generate services
+      ansible.builtin.template:
+        src: service-{{ service.type | default('http') }}.toml.j2
+        dest: "{{ traefik_real_provider_file_directory }}/service-{{ service.name }}.toml"
+      loop: "{{ traefik_services }}"
+      loop_control:
+        loop_var: service
