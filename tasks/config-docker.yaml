@@ -4,17 +4,6 @@
     src: docker-compose.yaml.j2
     dest: "{{ traefik_docker_compose }}/docker-compose.yaml"
 
-- name: create docker networks
-  community.docker.docker_network:
-    name: "{{ network.name }}"
-    driver: "{{ network.driver }}"
-    driver_options: "{{ network.driver_opts }}"
-    state: present
-  loop: "{{ traefik_docker_networks }}"
-  loop_control:
-    loop_var: network
-  when: traefik_docker_precreate_networks
-
 - name: pull docker image
   community.docker.docker_image:
     name: "{{ traefik_docker_image }}"

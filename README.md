@@ -106,7 +106,6 @@ All provider options are supported, and will be output as specified. No default 
 | :--- | :--- | :--- |
 | `traefik_docker_compose` | `"{{ traefik_config_dir }}"` | Location for generated `docker-compose.yaml` |
 | `traefik_docker_service_name` | `"traefik"` | Name of service in `docker-compose.yaml` |
-| `traefik_docker_precreate_networks` | `yes` | Precreate `traefik_docker_networks` outside of `docker-compose.yaml` |
 | `traefik_docker_networks` | `"{{ traefik_default_docker_networks }}"` | Networks to create in `docker-compose.yaml`. Traefik container will be attached to all networks listed |
 | `traefik_docker_network` | `"traefik"` | Name of default network |
 | `traefik_docker_network_driver` | `"bridge"` | Driver type for default network  |
@@ -172,7 +171,7 @@ One network definition is provided by default
 ```Yaml
 traefik_default_docker_network:
   name: "{{ traefik_docker_network }}"
-  external: true
+  external: false
   alias: "{{ traefik_docker_network_alias }}"
   driver: "{{ traefik_docker_network_driver }}"
   driver_opts: "{{ traefik_docker_network_driver_options }}"
