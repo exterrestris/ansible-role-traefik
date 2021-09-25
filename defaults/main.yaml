@@ -61,6 +61,8 @@ traefik_docker_socket: /var/run/docker.sock
 
 traefik_docker_networks: "{{ traefik_default_docker_networks }}"
 
+traefik_docker_restart: unless-stopped
+
 traefik_provider_docker_endpoint: "unix://{{ traefik_docker_socket }}"
 
 traefik_provider_file_watch: true

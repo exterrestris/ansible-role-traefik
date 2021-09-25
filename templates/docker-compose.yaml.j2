@@ -20,6 +20,7 @@ services:
 {% for network in traefik_docker_networks %}
       - {{ network.name }}
 {% endfor %}
+    restart: {{ traefik_docker_restart }}
 
 networks:
 {% for network in traefik_docker_networks %}
