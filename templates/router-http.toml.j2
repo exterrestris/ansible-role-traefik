@@ -1,11 +1,14 @@
+{% macro optlist(name, values) -%}
+{%  if values is string %}
+    {{ name }} = ["{{ values }}"]
+{%  else %}
+    {{ name }} = ["{{ values | join('", "') }}"]
+{%  endif %}
+{%- endmacro %}
 {% macro definition(router) -%}
     rule = "{{ router.rule }}"
 {% if router.entrypoints is defined %}
-{%  if router.entrypoints is string %}
-    entryPoints = ["{{ router.entrypoints }}"]
-{%  else %}
-    entryPoints = ["{{ router.entrypoints | join('", "') }}"]
-{%  endif %}
+    {{ optlist('entryPoints', router.entrypoints) }}
 {% endif %}
     service = "{{ router.service }}"
 {%- endmacro %}
