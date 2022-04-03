@@ -39,6 +39,8 @@ traefik_log_enabled: no
 
 traefik_log_file: 'traefik.log'
 
+traefik_log_level: 'ERROR'
+
 traefik_access_log_enabled: no
 
 traefik_access_log_file: 'access.log'
