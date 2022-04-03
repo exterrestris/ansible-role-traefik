@@ -71,4 +71,6 @@ traefik_tls_certificates: []
 
 traefik_routers: []
 
+traefik_middlewares: []
+
 traefik_services: []
