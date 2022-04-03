@@ -10,6 +10,9 @@
 {% if router.entrypoints is defined %}
     {{ optlist('entryPoints', router.entrypoints) }}
 {% endif %}
+{% if router.middlewares is defined %}
+    {{ optlist('middlewares', router.middlewares) }}
+{% endif %}
     service = "{{ router.service }}"
 {%- endmacro %}
 [http.routers]
