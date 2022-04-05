@@ -1,5 +1,38 @@
 [http.services]
   [http.services.{{ service.name }}.loadBalancer]
+{% if service.passHostHeader is defined %}
+    passHostHeader = {{ service.passHostHeader | lower }}
+{% endif %}
+{% if service.healthCheck is defined %}
+      [http.services.{{ service.name }}.loadBalancer.healthCheck]
+{%  if service.healthCheck.path is defined %}
+        path = "{{ service.healthCheck.path }}"
+{%  endif %}
+{%  if service.healthCheck.scheme is defined %}
+        scheme = "{{ service.healthCheck.scheme }}"
+{%  endif %}
+{%  if service.healthCheck.hostname is defined %}
+        hostname = "{{ service.healthCheck.hostname }}"
+{%  endif %}
+{%  if service.healthCheck.port is defined %}
+        port = {{ service.healthCheck.port }}
+{%  endif %}
+{%  if service.healthCheck.interval is defined %}
+        interval = "{{ service.healthCheck.interval }}"
+{%  endif %}
+{%  if service.healthCheck.timeout is defined %}
+        timeout = "{{ service.healthCheck.timeout }}"
+{%  endif %}
+{%  if service.healthCheck.followRedirects is defined %}
+        followRedirects = {{ service.healthCheck.followRedirects | lower }}
+{%  endif %}
+{%  if service.healthCheck.headers is defined %}
+        [http.services.Service-1.loadBalancer.healthCheck.headers]
+{%   for header, value in service.healthCheck.headers %}
+          {{ header }} = "{{ value }}"
+{%   endfor %}
+{%  endif %}
+{% endif %}
 {% for server in service.servers %}
     [[http.services.{{ service.name }}.loadBalancer.servers]]
 {%  if server is mapping %}
