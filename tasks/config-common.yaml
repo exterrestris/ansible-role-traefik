@@ -32,6 +32,13 @@
       loop: "{{ traefik_routers }}"
       loop_control:
         loop_var: router
+    - name: generate middlewares
+      ansible.builtin.template:
+        src: middleware-{{ middleware.type | default('http') }}.toml.j2
+        dest: "{{ traefik_provider_file_directory }}/middleware-{{ middleware.name }}.toml"
+      loop: "{{ traefik_middlewares }}"
+      loop_control:
+        loop_var: middleware
     - name: generate services
       ansible.builtin.template:
         src: service-{{ service.type | default('http') }}.toml.j2
