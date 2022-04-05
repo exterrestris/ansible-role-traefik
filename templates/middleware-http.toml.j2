@@ -1,2 +1,15 @@
+{% macro shorthand(properties) %}
+{%  for property, value in properties.items() %}
+{%-  if value is mapping %}
+    [http.middlewares.{{ middleware.name }}.{{ middleware.middleware }}.property]
+      {{ shorthand(value) }}
+{%   elif value is boolean %}
+      {{ property }} = {{ value | lower }}
+{%   else %}
+      {{ property }} = "{{ value }}"
+{%   endif %}
+{%  endfor %}
+{% endmacro %}
 [http.middlewares]
   [http.middlewares.{{ middleware.name }}.{{ middleware.middleware }}]
+    {{ shorthand(middleware | dict2items | rejectattr("key", "equalto", "name") | rejectattr("key", "equalto", "middleware") | list | items2dict ) }}
