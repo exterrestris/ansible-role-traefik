@@ -18,6 +18,6 @@
     source: pull
 
 - name: traefik docker start
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     state: present
     project_src: "{{ traefik_docker_compose }}"
