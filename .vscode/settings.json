@@ -1,0 +1,8 @@
+{
+  "ansible.python.interpreterPath": "/usr/bin/python3",
+  "files.associations": {
+    "**/tasks/*.yaml": "ansible",
+    "**/handlers/*.yaml": "ansible",
+    "**/templates/*.j2": "ansible-jinja"
+  }
+}
