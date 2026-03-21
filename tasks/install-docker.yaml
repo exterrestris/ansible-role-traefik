@@ -1,6 +1,6 @@
 ---
 - name: include common config tasks
-  include_tasks: "config-common.yaml"
+  ansible.builtin.include_tasks: "config-common.yaml"
   vars:
     traefik_config_dir: /etc/traefik
     traefik_provider_file_directory: /etc/traefik/conf.d

@@ -13,7 +13,7 @@
   when: traefik_binary_version == "latest"
 
 - name: create download directory
-  file:
+  ansible.builtin.file:
     dest: "{{ traefik_download_dir }}"
     state: directory
 

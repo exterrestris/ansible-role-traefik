@@ -1,13 +1,13 @@
 ---
 - name: set real paths
-  set_fact:
+  ansible.builtin.set_fact:
     traefik_real_config_dir: "{{ traefik_config_dir }}"
     traefik_real_provider_file_directory: "{{ traefik_provider_file_directory }}"
     traefik_real_tls_certificate_dir: "{{ traefik_tls_certificate_dir }}"
     traefik_real_log_dir: "{{ traefik_log_dir }}"
 
 - name: create config/log directories
-  file:
+  ansible.builtin.file:
     dest: "{{ item }}"
     state: directory
   with_items:
@@ -17,4 +17,4 @@
     - "{{ traefik_real_log_dir }}"
 
 - name: include install tasks
-  include_tasks: "install-{{ traefik_install }}.yaml"
+  ansible.builtin.include_tasks: "install-{{ traefik_install }}.yaml"
