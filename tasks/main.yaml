@@ -10,6 +10,8 @@
   ansible.builtin.file:
     dest: "{{ item }}"
     state: directory
+    owner: "{{ traefik_config_owner }}"
+    group: "{{ traefik_config_group }}"
   with_items:
     - "{{ traefik_real_config_dir }}"
     - "{{ traefik_real_provider_file_directory }}"

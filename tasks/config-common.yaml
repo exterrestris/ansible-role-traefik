@@ -3,6 +3,8 @@
   ansible.builtin.template:
     src: traefik.toml.j2
     dest: "{{ traefik_real_config_dir }}/traefik.toml"
+    owner: "{{ traefik_config_owner }}"
+    group: "{{ traefik_config_group }}"
   notify:
     - traefik docker restart
     - traefik service restart

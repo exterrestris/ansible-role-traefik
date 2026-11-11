@@ -61,6 +61,9 @@
 
 - name: include common config tasks
   include_tasks: "config-common.yaml"
+  vars:
+    traefik_config_owner: "{{ traefik_service_user }}"
+    traefik_config_group: "{{ traefik_service_user }}"
 
 - name: enable and start service
   ansible.builtin.systemd:
